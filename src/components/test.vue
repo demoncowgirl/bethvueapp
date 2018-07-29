@@ -14,17 +14,34 @@
     <li v-for="word in words">{{word.norwegian}} {{word.english}} {{word.nor_sentence}} {{word.eng_sentence}}</li>
   </ul>
   <button v-on:click="submit">Submit</button>
-
+  <button v-on:click="greet('Hello World!')">Greeting</button></br>
+  <input type="text" v-on:keyup="pressKey" v-on:keyup.enter="enterHit"/>
+  <hr />
+    <label>First Name: </label><input type="text" v-model="user.firstName"></br>
+    <label>Last Name: </label><input type="text" v-model="user.lastName">
+    <h3>{{fullName}}</h3>
+    <h2>{{msg}}</h2>
+  </hr>
   </div>
 </template>
 
 <script>
   export default{
     name: 'test',
+    //component properties
+    props: {
+
+        msg: {
+          type: String,
+          default: 'FooBar'
+        }
+
+    },
+
     data() {
       return{
       title: 'Hello World',
-      subtitle: '<h1>Hello Again!</h1>',
+      subtitle: '<h1>Hello Again!</h1',
       newWord: '',
 
       user: {
@@ -48,7 +65,26 @@
     },
       methods:{
         submit: function(){
-          alert("Hello!");
+          alert("Your form has been submitted!");
+        },
+        // passing parameters
+        greet: function(greeting){
+          alert(greeting);
+        },
+        // event
+        pressKey: function(e){
+          console.log(e.target.value);
+        },
+
+        enterHit: function(e){
+          console.log('You hit enter');
+        }
+      },
+      // computed methods
+      computed: {
+        fullName: function(){
+          // in the user object
+          return this.user.firstName + ' ' + this.user.lastName;
         }
       }
   }
